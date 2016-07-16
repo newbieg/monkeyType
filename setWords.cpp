@@ -2,40 +2,33 @@
  *	wrather than the normal version.
  * */
 
-#include <unordered_set>
-#include <string>
+#include "setWords.h"
 #include <iostream>
 #include <fstream>
 
-class words
-{
-	public:
-	words();
-	bool load(std::string fileName);
-	bool save(std::string fileName);
-	bool checkSpell(std::string word);
-	bool checkSpell_CS(std::string word);
-	void addWord(std::string word);
-	void remove(std::string word);
-	void print();
-	
-	
-
-	private:
-
-	std::unordered_set <std::string> uol; //short for un-ordered list
-
-};
 
 
 using namespace std;
 
-words::words()
+string strLower(string input)
+{
+	for(int i = 0; i < input.length(); i ++)
+	{
+		if(input[i] >= 'A' && input[i] <= 'Z')
+		{
+			input[i] = input[i] - 'A';
+			input[i] += 'a';
+		}
+	}
+	return input;
+}
+
+setWords::setWords()
 {
 
 }
 
-bool words::load(string fileName)
+bool setWords::load(string fileName)
 {
 	string word;
 	bool result = false;
@@ -54,7 +47,7 @@ bool words::load(string fileName)
 	return result;
 }
 
-bool words::save(string fileName)
+bool setWords::save(string fileName)
 {
 	bool notDone = true;
 	ofstream outFile(fileName.c_str());
@@ -70,17 +63,17 @@ bool words::save(string fileName)
 }
 
 
-void words::addWord(string word)
+void setWords::addWord(string word)
 {
 	uol.emplace(word);
 }
 
-void words::remove(string word)
+void setWords::remove(string word)
 {
 	uol.erase(word);
 }
 
-void words::print()
+void setWords::print()
 {
 	for(const string& nextWord: uol)
 	{
@@ -88,10 +81,27 @@ void words::print()
 	}
 }
 
+void setWords::toLower()
+{
+	unordered_set <string> newLibrary;
+	for(const string& nextWord: uol)
+	{
+		newLibrary.emplace(strLower(nextWord));
+	}
+	uol = newLibrary;
+}
+
+bool setWords::checkSpell(string testWord)
+{
+	return uol.find(testWord) != uol.end();
+}
+
+/*
 int main()
 {
-	words bob;
-	bob.load("linux.words");
+	setWords bob;
+	bob.load("linux.setWords");
 //	bob.print();
-	bob.save("linux.words.txt");	
+	bob.save("linux.setWords.txt");	
 }
+*/
