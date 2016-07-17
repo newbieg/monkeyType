@@ -5,6 +5,9 @@
 #include <unordered_set>
 #include <string>
 
+std::string dropNonChars(std::string input);
+std::string strLower(std::string input);
+
 class setWords
 {
 	public:
@@ -15,7 +18,9 @@ class setWords
 	void addWord(std::string word);
 	void remove(std::string word);
 	void toLower(); // converts all strings to lowerCase.
+	void dropNonChars(); // drops all non-alphabetical and non-numeric characters
 	void print();
+	
 	
 	
 

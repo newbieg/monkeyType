@@ -4,31 +4,44 @@
 #include <vector>
 #include <string>
 
+
+
 using namespace std;
+
+bool silence = false; // true = silence all output besides the final analyzed words
+
+void qwrite(string input)
+{
+	if(!silence)
+	{
+		cout << input << endl;
+	}
+}
 
 int main()
 {
-	int monkeysInTroop = 1000;
+	int monkeysInTroop = 5256;
 	int wordsPerMonkey = 1000;
-	cout << "Loading Dictionary... \n";
+	qwrite("Loading Dictionary... \n");
 	setWords diction;
 	diction.load("linux.words");
 	diction.toLower();
-	cout << "Done" << endl;
-	cout << "\nMonkey troop is typing... \n";
+	qwrite("Done\n");
+	qwrite("\nMonkey troop is typing... \n");
 	vector <monkeyType> troop;
 	monkeyType bob;
 	for(int count = 0; count < monkeysInTroop; count ++)	
 	{
 		bob.start(wordsPerMonkey);
 		troop.push_back(bob);
-		cout << count << " Monkies done.\n";
+		if(!silence)
+			cout << count << " Monkies done.\n";
 	}
-	cout << "Done.\n";
+	qwrite("Done.\n");
 
 
 	string wordsFound = "";
-	cout << "Checking each monkey's writing skills\n";
+	qwrite("Checking each monkey's writing skills\n");
 	for(int i = 0; i < troop.size(); i ++)
 	{
 //		wordsFound += "\n\n";
@@ -43,9 +56,9 @@ int main()
 		}
 	}
 
-	cout << wordsFound << endl;
+	cout << wordsFound + "\n";
 	
 
-	// cout << wordsFound << endl;
+	// qwrite(wordsFound << endl;
 	
 }
